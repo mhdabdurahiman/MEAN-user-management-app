@@ -1,4 +1,4 @@
-import User02 from '../models/userModel.js';
+import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import { validateUser } from '../validators/userValidator.js';
 
@@ -27,12 +27,13 @@ const register = async(req, res) => {
     if(error){
       return res.status(400).json({ error: error.details.map(detail => detail.message).join(', ') });
     }
-    const { name, email, mobileNo, password } = req.body;
+    const { fname, lname, email, mobile, password } = req.body;
     const hashedPassword = await encryptPassword(password);
     const user = User({
-      name: name,
+      fname: fname,
+      lname: lname,
       email: email,
-      mobileNo: mobileNo,
+      mobile: mobile,
       password: hashedPassword
     })
 
@@ -43,6 +44,7 @@ const register = async(req, res) => {
       user: userResponse
     });
   } catch (error) {
+    console.log('resgistration error', error);
     res.status(400).json({ error: error.message });
   }
 }

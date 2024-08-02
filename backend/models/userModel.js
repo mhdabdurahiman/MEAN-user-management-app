@@ -1,7 +1,12 @@
 import {mongoose} from 'mongoose';
 
 const userSchema = mongoose.Schema({
-  name:{
+  fname:{
+    type: String,
+    required: true,
+    unique: true
+  },
+  lname:{
     type: String,
     required: true,
     unique: true
@@ -11,7 +16,7 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  mobileNo:{
+  mobile:{
     type: Number,
     required: true
   },
