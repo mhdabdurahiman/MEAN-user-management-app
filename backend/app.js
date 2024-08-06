@@ -1,8 +1,9 @@
 import express from 'express';
 import { configDotenv } from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser'
 import { dbConnect } from './config/db.js';
-import { userRoutes } from './routes/userRoutes.js';
+import { authRoutes } from './routes/authRoutes.js';
 
 const app = express();
 
@@ -10,15 +11,24 @@ const app = express();
 configDotenv();
 
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: 'http://localhost:4200',
+  credentials: true,
 }))
+
+app.use(cookieParser());
 
 app.use(express.json());
 
 // DB connection function
-dbConnect();
+dbConnect(); console.log("No token found");
 
-app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 const PORT = process.env.PORT || 3000;
 
