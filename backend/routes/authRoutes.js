@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, register, logout } from '../controllers/authController.js';
+import { login, register, logout, checkAuth } from '../controllers/authController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/login', login);
 router.post('/register', register);
 router.get('/logout', authMiddleware, logout);
+router.get('/check-auth', checkAuth);
 
 export {
   router as authRoutes

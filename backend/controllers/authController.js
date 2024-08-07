@@ -81,8 +81,22 @@ const logout = async(req, res) => {
     .json({ message: "Successfully logged out" })
 }
 
+const checkAuth = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token) {
+    return res.status(200).json({ isAuthenticated: false, isAdmin: false })
+  }
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).json({ isAuthenticated: true, isAdmin: data.isAdmin })
+  } catch (error) {
+    return res.status(200).json({ isAuthenticated: false, isAdmin: false });
+  }
+}
+
 export {
   login,
   register,
   logout,
+  checkAuth,
 }
