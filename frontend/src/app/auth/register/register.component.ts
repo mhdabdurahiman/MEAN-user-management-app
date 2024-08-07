@@ -2,14 +2,14 @@ import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { errorContext } from 'rxjs/internal/util/errorContext';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, NgClass,],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgClass, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
