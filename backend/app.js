@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser'
 import { dbConnect } from './config/db.js';
 import { authRoutes } from './routes/authRoutes.js';
+import { userRoutes } from './routes/userRoutes.js';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 dbConnect(); console.log("No token found");
 
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
