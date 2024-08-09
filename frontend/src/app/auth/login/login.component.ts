@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../state/auth/auth.actions'
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService, private store: Store) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password:['', Validators.required]
@@ -25,16 +27,8 @@ export class LoginComponent {
 
   onSubmit(){
     if (this.loginForm.valid){
-      this.authService.loginUser(this.loginForm.value).subscribe(
-        (response) => {
-          this.toastr.success('Login successful', 'Success');
-          this.router.navigate(['/home'])
-        },
-        error => {
-          console.log(error);
-          this.toastr.error(error.message, 'Error')
-        }
-      )
+      const { email, password } = this.loginForm.value;
+      this.store.dispatch(AuthActions.login({ email, password }));
     }
   }
 }

@@ -38,7 +38,7 @@ const login = async(req, res) => {
         sameSite: 'Lax'
       })
       .status(200)
-      .json({ message: "Logged in successfully" })
+      .json({ message: "Logged in successfully", user: user })
   } catch (error) {
     console.log(error);
     return res.status(400).json({message: 'Login failed, please try again'})

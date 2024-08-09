@@ -1,1 +1,28 @@
-<p>profile works!</p>
+<app-navbar />
+
+<div class="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">User Profile</h2>
+    <div *ngIf="user$ | async as user; else loading">
+      <div class="mb-4">
+        <label class="block text-gray-600 font-medium mb-1">First Name</label>
+        <p class="text-gray-800">{{ user.fname }}</p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-600 font-medium mb-1">Last Name</label>
+        <p class="text-gray-800">{{ user.lname }}</p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-600 font-medium mb-1">Email</label>
+        <p class="text-gray-800">{{ user.email }}</p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-600 font-medium mb-1">Mobile</label>
+        <p class="text-gray-800">{{ user.mobile }}</p>
+      </div>
+    </div>
+    <ng-template #loading>
+      <p class="text-gray-600">Loading...</p>
+    </ng-template>
+  </div>
+</div>
